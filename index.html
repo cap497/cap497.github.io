@@ -1,8 +1,74 @@
 <!DOCTYPE html>
 <html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LZW Compression Project</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f5f5f5;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        section {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 20px;
+            padding: 20px;
+        }
+        h2 {
+            border-bottom: 2px solid #4CAF50;
+            padding-bottom: 10px;
+        }
+        h3 {
+            color: #4CAF50;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        ul li {
+            margin-bottom: 10px;
+        }
+        pre {
+            background-color: #f0f0f0;
+            border-left: 4px solid #4CAF50;
+            padding: 15px;
+            overflow-x: auto;
+            border-radius: 4px;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            margin-top: 40px;
+        }
+        a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
 <body>
 
-  <section id="overview">
+<header>
+    <h1>LZW Compression Project Overview</h1>
+</header>
+
+<section id="overview">
     <h2>Overview</h2>
     <p>This project implements LZW (Lempel-Ziv-Welch) compression and decompression using two variations of Trie data structures: a <strong>Standard Trie</strong> and a <strong>Compact Trie</strong>. These data structures serve as dictionaries for LZW, allowing for efficient storage of repeating sequences in the input data. By offering both standard and compact variations, the project enables comparisons in memory usage, compression efficiency, and performance.</p>
     <p>The project provides both compression and decompression functions, along with the ability to run tests using the Gutenberg corpus. Various parameters such as maximum dictionary size, Trie type (Standard or Compact), and bit size can be configured through command-line arguments.</p>
@@ -153,6 +219,6 @@
     <p><strong>Author:</strong> Raphael</p>
     <p>For further questions or discussions, open an issue on GitHub or reach out via the contact information in the repository.</p>
 </footer>
-  
+
 </body>
 </html>
