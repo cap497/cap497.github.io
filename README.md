@@ -1,3 +1,3 @@
 # cap497.github.io
 
-Visit our [LZW GitHub Page](cap497.github.io/LZW)
+Visit our page: [https://cap497.github.io/LZW/](https://cap497.github.io/LZW/)
