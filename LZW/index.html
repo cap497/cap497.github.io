@@ -9,26 +9,33 @@
             font-family: Arial, sans-serif;
             line-height: 1.6;
             background-color: #f5f5f5;
-            color: #333;
+            color: #ffffff;
             margin: 0;
             padding: 0;
+        }
+        #wrapper {
+            max-width: 800px; /* Limit the width of the content to improve readability */
+            margin: 0 auto; /* Center the wrapper horizontally */
+            padding: 20px; /* Add padding for some spacing */
         }
         header {
             background-color: #4CAF50;
             color: white;
-            padding: 20px;
+            padding: 5px;
             text-align: center;
+            border-radius: 8px;
         }
         section {
-            background-color: white;
+            background-color: #313131;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            margin: 20px;
-            padding: 20px;
+            margin: 10px 0;
+            padding: 10px;
         }
         h2 {
-            border-bottom: 2px solid #4CAF50;
-            padding-bottom: 10px;
+            border-bottom: 5px solid #4CAF50;
+            padding-bottom: 5px;
+            padding-top: -10px;
         }
         h3 {
             color: #4CAF50;
@@ -39,186 +46,213 @@
         ul li {
             margin-bottom: 10px;
         }
+        ul ul {
+            padding-left: 40px;
+        }
         pre {
             background-color: #f0f0f0;
             border-left: 4px solid #4CAF50;
             padding: 15px;
             overflow-x: auto;
             border-radius: 4px;
+            color: #313131;
         }
-        footer {
-            background-color: #333;
-            color: white;
-            text-align: center;
-            padding: 10px 0;
-            margin-top: 40px;
-        }
-        a {
-            color: #4CAF50;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
+        img {
+            width: 70%;  /* Default width for all images */
+            height: auto;
+            display: block;
+            margin: 20px auto;
+            border-radius: 8px;
         }
     </style>
 </head>
 <body>
 
-<header>
-    <h1>LZW Compression Project Overview</h1>
-</header>
+<div id="wrapper">
+    <header>
+        <h1>LZW Compression Project Overview</h1>
+        <p><strong>Raphael Alves dos Reis</strong></p>
+        <p><strong>Iago Nathan Cardoso Araujo</strong></p>
+    </header>
 
-<section id="overview">
-    <h2>Overview</h2>
-    <p>This project implements LZW (Lempel-Ziv-Welch) compression and decompression using two variations of Trie data structures: a <strong>Standard Trie</strong> and a <strong>Compact Trie</strong>. These data structures serve as dictionaries for LZW, allowing for efficient storage of repeating sequences in the input data. By offering both standard and compact variations, the project enables comparisons in memory usage, compression efficiency, and performance.</p>
-    <p>The project provides both compression and decompression functions, along with the ability to run tests using the Gutenberg corpus. Various parameters such as maximum dictionary size, Trie type (Standard or Compact), and bit size can be configured through command-line arguments.</p>
-</section>
+    <section id="overview">
+        <h2>Overview</h2>
+        <p>This project implements LZW (Lempel-Ziv-Welch) compression and decompression using two variations of Trie data structures: a <strong>Standard Trie</strong> and a <strong>Compact Trie</strong>. These data structures serve as dictionaries for LZW, allowing for efficient storage of repeating sequences in the input data. By offering both standard and compact variations, the project enables comparisons in memory usage, compression efficiency, and performance.</p>
+        <p>The project provides both compression and decompression functions, along with the ability to run tests using the Gutenberg corpus. Various parameters such as maximum dictionary size, Trie type (Standard or Compact), and bit size can be configured through command-line arguments.</p>
+    </section>
 
-<section id="components">
-    <h2>Components</h2>
-    <p>The project is split into the following components:</p>
+    <section id="components">
+        <h2>Components</h2>
+        <p>The project is split into the following components:</p>
 
-    <h3>1. Trie Implementations</h3>
-    <h4>Standard Trie (trie_standard.py)</h4>
-    <ul>
-        <li><strong>StandardTrieNode</strong> and <strong>StandardTrie</strong> classes represent the traditional structure of a trie, where each node represents a unique sequence of bytes.</li>
-        <li><strong>Functions:</strong>
+        <h3>1. Trie Implementations</h3>
+
+        <h4>Standard Trie (trie_standard.py)</h4>
+        <ul>
             <ul>
-                <li><strong>insert(sequence, index):</strong> Adds a new sequence to the trie.</li>
-                <li><strong>search(sequence):</strong> Searches for a sequence in the trie.</li>
-                <li><strong>remove(sequence):</strong> Removes a sequence from the trie.</li>
-                <li><strong>visualize_trie():</strong> Recursively displays the entire trie structure.</li>
+                <li><strong>StandardTrieNode</strong> and <strong>StandardTrie</strong> classes represent the traditional structure of a trie, where each node represents a unique sequence of bytes.</li>
+                <li><strong>Functions:</strong>
+                    <ul>
+                        <li><strong>insert(sequence, index):</strong> Adds a new sequence to the trie.</li>
+                        <li><strong>search(sequence):</strong> Searches for a sequence in the trie.</li>
+                        <li><strong>remove(sequence):</strong> Removes a sequence from the trie.</li>
+                        <li><strong>visualize_trie():</strong> Recursively displays the entire trie structure.</li>
+                    </ul>
+                </li>
+                <li><strong>Memory Management:</strong> The memory usage is tracked using Python's <code>sys.getsizeof()</code> for each node. Each new sequence added to the trie increases the memory footprint proportionally.</li>
             </ul>
-        </li>
-        <li><strong>Memory Management:</strong> The memory usage is tracked using Python's <code>sys.getsizeof()</code> for each node. Each new sequence added to the trie increases the memory footprint proportionally.</li>
-    </ul>
-
-    <h4>Compact Trie (trie_compact.py)</h4>
-    <ul>
-        <li><strong>CompactTrieNode</strong> and <strong>CompactTrie</strong> classes implement a compact version of the trie, reducing memory usage by merging nodes that share common prefixes.</li>
-        <li><strong>Functions:</strong>
+        
+            <h4>Compact Trie (trie_compact.py)</h4>
             <ul>
-                <li><strong>insert(sequence, index):</strong> Adds new sequences to the trie while ensuring minimal memory usage by splitting nodes based on common prefixes.</li>
-                <li><strong>search(sequence):</strong> Finds sequences, handling partially shared nodes.</li>
-                <li><strong>remove(sequence):</strong> Removes a sequence, managing partial matches effectively.</li>
-                <li><strong>visualize_trie():</strong> Visualizes the trie structure, providing a compact representation of branches.</li>
+                <li><strong>CompactTrieNode</strong> and <strong>CompactTrie</strong> classes implement a compact version of the trie, reducing memory usage by merging nodes that share common prefixes.</li>
+                <li><strong>Functions:</strong>
+                    <ul>
+                        <li><strong>insert(sequence, index):</strong> Adds new sequences to the trie while ensuring minimal memory usage by splitting nodes based on common prefixes.</li>
+                        <li><strong>search(sequence):</strong> Finds sequences, handling partially shared nodes.</li>
+                        <li><strong>remove(sequence):</strong> Removes a sequence, managing partial matches effectively.</li>
+                        <li><strong>visualize_trie():</strong> Visualizes the trie structure, providing a compact representation of branches.</li>
+                    </ul>
+                </li>
+                <li><strong>Memory Management:</strong> The compact trie uses <code>sys.getsizeof()</code> to keep track of memory use, and shares branches when common prefixes are identified, leading to more efficient memory usage.</li>
             </ul>
-        </li>
-        <li><strong>Memory Management:</strong> The compact trie uses <code>sys.getsizeof()</code> to keep track of memory use, and shares branches when common prefixes are identified, leading to more efficient memory usage.</li>
-    </ul>
+        
+        </ul>
 
-    <h3>2. LZW Compression (lzw_compressor.py)</h3>
-    <ul>
-        <li>The <strong>LZWCompressor</strong> class handles the compression of input data using either the Standard or Compact Trie.</li>
-        <li><strong>Parameters: Max Bits, Fixed LZW, Trie Type</strong>
+        <h3>2. LZW Compression (lzw_compressor.py)</h3>
+        <ul>
+            <li>The <strong>LZWCompressor</strong> class handles the compression of input data using either the Standard or Compact Trie.</li>
+            <li><strong>Parameters: Max Bits, Fixed LZW, Trie Type</strong>
+                <ul>
+                    <li><strong>max_bits:</strong> Defines the maximum number of bits for representing dictionary entries (default is 12 bits).</li>
+                    <li><strong>use_compact_trie:</strong> Boolean flag to choose between Compact and Standard Trie.</li>
+                    <li><strong>fixedLZW:</strong> If true, uses a fixed bit length throughout the compression process.</li>
+                </ul>
+            </li>
+            <li><strong>Compression Process:</strong>
+                <ul>
+                    <li>The dictionary is initialized with all possible byte values (0-255).</li>
+                    <li>Input sequences are added to the trie, and compressed codes are generated based on the existing entries.</li>
+                    <li><strong>Statistics Generation:</strong> Compression statistics (compression ratio, memory usage, dictionary size, etc.) can be generated optionally.</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h3>3. LZW Decompression (lzw_decompressor.py)</h3>
+        <ul>
+            <li>The <strong>LZWDecompressor</strong> class decompresses the compressed data back to the original sequence.</li>
+            <li><strong>Parameters:</strong> Supports configurable maximum bits and fixed LZW options, similar to the compressor.</li>
+            <li><strong>Decompression Process:</strong>
+                <ul>
+                    <li>The dictionary is initialized similarly to the compressor, with individual byte values.</li>
+                    <li>New sequences are added dynamically as codes are processed.</li>
+                    <li>The decompression method also allows for generating statistics like execution time, dictionary growth, and memory usage.</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h3>4. Main Script (main.py)</h3>
+        <ul>
+            <li>The <strong>main.py</strong> script orchestrates the compression and decompression tests, using texts from the Gutenberg corpus.</li>
+            <li><strong>Command-Line Arguments:</strong>
+                <ul>
+                    <li><strong>--compact:</strong> Use Compact Trie for LZW</li>
+                    <li><strong>--fixed:</strong> Use fixed LZW bit length</li>
+                    <li><strong>--max-bits MAX_BITS</strong> Maximum number of bits</li>
+                    <li><strong>--test [TEST]:</strong> Run tests on the entire Gutenberg corpus or the first X number of files</li>
+                    <li><strong>--file FILE:</strong> Path to a specific .txt file to use</li>
+                    <li><strong>--input INPUT:</strong> Input string to compress and decompress</li>
+                    <li><strong>--stats:</strong> Save statistics in stats.csv</li>
+                    <li><strong>--plot:</strong> Generate statistics graphs</li>
+                </ul>
+            </li>
+            <li><strong>Testing Workflow:</strong> The script runs LZW compression and decompression on different lengths of text (short, medium, long, huge) to evaluate the efficiency of both Trie types. The success of compression and decompression is verified by comparing the original text to the decompressed output.</li>
+        </ul>
+    </section>
+
+    <section id="usage">
+        <h2>Usage</h2>
+        <p>The project can be executed via the command line by using <strong>main.py</strong>. Below are some examples:</p>
+
+        <h3>Create a Python VIrtual Environment</h3>
+        <pre><code>python -m venv venv_lzw</code></pre>
+        <p>This command will:</p>
+        <ul>
             <ul>
-                <li><strong>max_bits:</strong> Defines the maximum number of bits for representing dictionary entries (default is 12 bits).</li>
-                <li><strong>use_compact_trie:</strong> Boolean flag to choose between Compact and Standard Trie.</li>
-                <li><strong>fixedLZW:</strong> If true, uses a fixed bit length throughout the compression process.</li>
+                <li>Create a Python Virtual Environment to run the application.</li>
+                <li>In this case, venv_lzw is just an example of name.</li>
+                <li>The user can choose any name in this step.</li>
             </ul>
-        </li>
-        <li><strong>Compression Process:</strong>
+        </ul>
+
+        <h3>Install Libraries</h3>
+        <pre><code>pip install nltk matplotlib pandas</code></pre>
+        <p>This command will:</p>
+        <ul>
             <ul>
-                <li>The dictionary is initialized with all possible byte values (0-255).</li>
-                <li>Input sequences are added to the trie, and compressed codes are generated based on the existing entries.</li>
-                <li><strong>Statistics Generation:</strong> Compression statistics (compression ratio, memory usage, dictionary size, etc.) can be generated optionally.</li>
+                <li>Download and install necessary libraries.</li>
+                <li>NLTK is used to generate test samples.</li>
+                <li>Matplotlib is used to plot graphs.</li>
+                <li>Pandas is used for data manipulation.</li>
             </ul>
-        </li>
-    </ul>
+        </ul>
 
-    <h3>3. LZW Decompression (lzw_decompressor.py)</h3>
-    <ul>
-        <li>The <strong>LZWDecompressor</strong> class decompresses the compressed data back to the original sequence.</li>
-        <li><strong>Parameters:</strong> Supports configurable maximum bits and fixed LZW options, similar to the compressor.</li>
-        <li><strong>Decompression Process:</strong>
+        <h3>Run Compression and Decompression with Compact Trie</h3>
+        <pre><code>python main.py --compact --test --stats --max-bits 16 --plot</code></pre>
+        <p>This command will:</p>
+        <ul>
             <ul>
-                <li>The dictionary is initialized similarly to the compressor, with individual byte values.</li>
-                <li>New sequences are added dynamically as codes are processed.</li>
-                <li>The decompression method also allows for generating statistics like execution time, dictionary growth, and memory usage.</li>
+                <li>Use both Compact and Standard Tries for compression.</li>
+                <li>Run tests on the Gutenberg corpus, using all available files.</li>
+                <li>Generate statistics for analysis.</li>
+                <li>Set maximum number of 16 bits.</li>
+                <li>Generate plots for statistics visualization.</li>
             </ul>
-        </li>
-    </ul>
+        </ul>
 
-    <h3>4. Main Script (main.py)</h3>
-    <ul>
-        <li>The <strong>main.py</strong> script orchestrates the compression and decompression tests, using texts from the Gutenberg corpus.</li>
-        <li><strong>Command-Line Arguments:</strong>
+        <h3>Run with Standard Trie and Fixed Bit Length</h3>
+        <pre><code>python main.py --fixed --test --stats --plot</code></pre>
+        <p>This command will:</p>
+        <ul>
             <ul>
-                <li><strong>--compact:</strong> Use Compact Trie for compression.</li>
-                <li><strong>--fixed:</strong> Use a fixed bit length during compression.</li>
-                <li><strong>--stats:</strong> Generate detailed statistics for analysis.</li>
-                <li><strong>--gutenberg:</strong> Run tests using texts from the Gutenberg corpus.</li>
-                <li><strong>--output:</strong> Save compression and decompression statistics to a CSV file.</li>
+                <li>Use the Standard Trie.</li>
+                <li>Run tests on the Gutenberg corpus.</li>
+                <li>Use a fixed bit length for LZW compression.</li>
+                <li>Generate statistics and its graphs.</li>
             </ul>
-        </li>
-        <li><strong>Testing Workflow:</strong> The script runs LZW compression and decompression on different lengths of text (short, medium, long, huge) to evaluate the efficiency of both Trie types. The success of compression and decompression is verified by comparing the original text to the decompressed output.</li>
-    </ul>
-</section>
+        </ul>
+    </section>
 
-<section id="usage">
-    <h2>Usage</h2>
-    <p>The project can be executed via the command line by using <strong>main.py</strong>. Below are some examples:</p>
+    <section id="results-observations">
+        <h2>Results and Observations</h2>
 
-    <h3>Run Compression and Decompression with Compact Trie</h3>
-    <pre><code>python main.py --compact --gutenberg --stats --max-bits 12 --num-files 3 --output stats.csv</code></pre>
-    <p>This command will:</p>
-    <ul>
-        <li>Use the Compact Trie for compression.</li>
-        <li>Run tests on the Gutenberg corpus, using the first 3 files.</li>
-        <li>Generate statistics and save them to <code>stats.csv</code>.</li>
-    </ul>
+        <ul>
+            <img src="compression_ratio.png" alt="Compression Ratio Comparison Graph" width="600" height="auto">
 
-    <h3>Run with Standard Trie and Fixed Bit Length</h3>
-    <pre><code>python main.py --fixed --gutenberg --stats --num-files 2</code></pre>
-    <p>This command will:</p>
-    <ul>
-        <li>Use the Standard Trie.</li>
-        <li>Run tests on the first 2 Gutenberg files.</li>
-        <li>Use a fixed bit length for LZW compression.</li>
-    </ul>
-</section>
+            <img src="memory_usage.png" alt="Memory Usage Comparison Graph" width="50%" height="auto">
 
-<section id="performance-comparison">
-    <h2>Performance Comparison</h2>
-    <ul>
-        <li><strong>Standard Trie</strong> offers straightforward insertion and lookup but can be memory-intensive, especially for large datasets.</li>
-        <li><strong>Compact Trie</strong> reduces the memory footprint by merging common prefixes, which may result in improved performance for repetitive datasets.</li>
-        <li><strong>Compression Ratio & Memory Usage:</strong> The main.py script outputs statistics to help compare memory usage, compression ratio, and execution time between both implementations.</li>
-    </ul>
-</section>
+            <img src="compression_time.png" alt="Compression Time Comparison Graph" width="70%" height="auto">
 
-<section id="results-observations">
-    <h2>Results and Observations</h2>
-    <ul>
-        <li><strong>Memory Efficiency:</strong> The Compact Trie shows significant memory savings due to its prefix-sharing mechanism.</li>
-        <li><strong>Speed Trade-Off:</strong> The splitting and merging of nodes in the Compact Trie may lead to slightly longer compression times compared to the Standard Trie for highly diverse datasets.</li>
-        <li><strong>Bit Management:</strong> The <code>max_bits</code> parameter influences how the trie grows, and thus impacts the compression efficiency. Fixed bit lengths result in predictable but sometimes less efficient compression.</li>
-    </ul>
-</section>
+            <img src="decompression_time.png" alt="Decompression Time Comparison Graph" width="700" height="auto">
 
-<section id="future-improvements">
-    <h2>Future Improvements</h2>
-    <ul>
-        <li><strong>Optimization of Node Splitting:</strong> The Compact Trie could be further optimized to reduce the overhead during node splitting.</li>
-        <li><strong>Parallel Compression:</strong> Implementing a multi-threaded approach could reduce execution time, especially for large texts.</li>
-        <li><strong>Extended Dataset Evaluation:</strong> Running tests on a more diverse dataset could give a clearer picture of the advantages and trade-offs of both Trie types.</li>
-    </ul>
-</section>
+            <img src="dictionary_size_growth.png" alt="Dictionary Size Growth Graph" width="80%" height="auto">
+        </ul>
+        <ul>
+            <li><strong>Memory Efficiency:</strong> The Compact Trie should provide significant memory savings due to the sharing of common prefixes, especially in repetitive datasets. This makes it ideal for applications where memory usage is a critical constraint. But that is not observed in results, which makes sense beacuse, despite the compact trie having less nodes, they have the same byte size as the sum of its equivalent single nodes in the standard version.</li>
+            <li><strong>Speed Trade-Offs:</strong> Due to the complexity of managing node splits and merges, the Compact Trie experiences longer insertion times compared to the Standard Trie as text length increases. However, for highly repetitive data, the memory efficiency, if implemented correctly, can outweigh the slower compression speed.</li>
+            <li><strong>Processing Times:</strong> Despite compression times being quite different between versions, as compact version takes much longer because of its internal comparisons to build the trie while standard version do not have these steps, decompression times are basically equivalent.</li>
+            <li><strong>Bit Management:</strong> The use of adaptive bit lengths allows for efficient dictionary growth. However, when using fixed bit lengths, the compression ratio can be negatively impacted, particularly for large inputs. Despite dictionary size graph shows no difference between tries, it might be an implementation error as dictionary should indeed be shorter as text increases. The compact version should have the same dictionary size as the standard version only in the worst case scenario, where there were no repetitions.</li>
+        </ul>
+    </section>
 
-<section id="contributing">
-    <h2>Contributing</h2>
-    <p>Feel free to fork this repository and create pull requests to enhance the LZW compression with new features, optimizations, or improved trie structures. Contributions are always welcome!</p>
-</section>
-
-<section id="license">
-    <h2>License</h2>
-    <p>This project is licensed under the MIT License. See the LICENSE file for more information.</p>
-</section>
-
-<footer>
-    <p><strong>Author:</strong> Raphael</p>
-    <p>For further questions or discussions, open an issue on GitHub or reach out via the contact information in the repository.</p>
-</footer>
+    <section id="future-improvements">
+        <h2>Future Improvements</h2>
+        <ul>
+            <li><strong>Optimization of Node Splitting:</strong> Further optimizing how nodes are split in the Compact Trie could help reduce the computational overhead and make compression faster.</li>
+            <li><strong>Parallel Compression:</strong> Implementing multi-threaded or parallel processing for the compression phase could lead to a substantial reduction in runtime for larger datasets.</li>
+            <li><strong>Extended Dataset Evaluation:</strong> Evaluating the performance of both Trie types on a more diverse set of texts could provide deeper insights into the trade-offs involved and guide optimization efforts.</li>
+        </ul>
+    </section>
+</div>
 
 </body>
 </html>
